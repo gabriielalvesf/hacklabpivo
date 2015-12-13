@@ -9,5 +9,9 @@ and open the template in the editor.
 */
 
 .wrapper {
-    
+    /* margin: 0px !important; */
+}
+
+.content-header {
+    margin: 0 ;
 }

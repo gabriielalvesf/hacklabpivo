@@ -42,70 +42,42 @@
                 <section class="content">
                     <div class="row">
                         <div class="col-md-6">
-                            <!-- AREA CHART -->
-                            <div class="box box-primary">
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">Area Chart</h3>
-                                    <div class="box-tools pull-right">
-                                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
-                                <div class="box-body">
-                                    <div class="chart">
-                                        <canvas id="areaChart" style="height:250px"></canvas>
-                                    </div>
-                                </div><!-- /.box-body -->
-                            </div><!-- /.box -->
-
-                            <!-- DONUT CHART -->
-                            <div class="box box-danger">
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">Donut Chart</h3>
-                                    <div class="box-tools pull-right">
-                                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
-                                <div class="box-body">
-                                    <canvas id="pieChart" style="height:250px"></canvas>
-                                </div><!-- /.box-body -->
-                            </div><!-- /.box -->
-
+                            <div class="info-box">
+                                <span class="info-box-icon bg-yellow"><i class="fa fa-gears"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Luminosidade</span>
+                                    <span class="info-box-number">410</span>
+                                </div><!-- /.info-box-content -->
+                            </div><!-- /.info-box -->
+                            <div class="info-box">
+                                <span class="info-box-icon bg-blue"><i class="fa fa-gears"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Temperatura local</span>
+                                    <span class="info-box-number">410</span>
+                                </div><!-- /.info-box-content -->
+                            </div><!-- /.info-box -->
+                            <div class="info-box">
+                                <span class="info-box-icon bg-green"><i class="fa fa-gears"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Umidade do ar</span>
+                                    <span class="info-box-number">410</span>
+                                </div><!-- /.info-box-content -->
+                            </div><!-- /.info-box -->
                         </div><!-- /.col (LEFT) -->
                         <div class="col-md-6">
                             <!-- LINE CHART -->
                             <div class="box box-info">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">Umidade do ar</h3>
+                                    <h3 class="box-title">Previsão do tempo</h3>
                                     <div class="box-tools pull-right">
                                         <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                         <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                                     </div>
                                 </div>
                                 <div class="box-body">
-                                    <div class="chart">
-                                        <canvas id="lineChart" style="height:250px"></canvas>
-                                    </div>
+                                    <iframe scrolling="no" frameborder="0" marginwidth="0" marginheight="0" width="150" height="170" src="http://selos.climatempo.com.br/selos/MostraSelo.php?CODCIDADE=173&SKIN=padrao"></iframe>
                                 </div><!-- /.box-body -->
                             </div><!-- /.box -->
-
-                            <!-- BAR CHART -->
-                            <div class="box box-success">
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">Bar Chart</h3>
-                                    <div class="box-tools pull-right">
-                                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
-                                <div class="box-body">
-                                    <div class="chart">
-                                        <canvas id="barChart" style="height:230px"></canvas>
-                                    </div>
-                                </div><!-- /.box-body -->
-                            </div><!-- /.box -->
-
                         </div><!-- /.col (RIGHT) -->
                     </div><!-- /.row -->
 
@@ -300,22 +272,91 @@
         <!-- page script -->
         <script>
             $(function () {
-                /* ChartJS
-                 * -------
-                 * Here we will create a few charts using ChartJS
-                 */
-
                 //--------------
-                //- AREA CHART -
+                //- UMIDADE DO AR -
                 //--------------
+                var umidadeDoArCanvas = $("#umidadeDoArChart").get(0).getContext("2d");
+                var umidadeDoArChart = new Chart(umidadeDoArCanvas);
 
-                // Get context with jQuery - using jQuery's .get() method.
-                var areaChartCanvas = $("#areaChart").get(0).getContext("2d");
-                // This will get the first returned node in the jQuery collection.
-                var areaChart = new Chart(areaChartCanvas);
+                var umidadeDoArData = {
+                    labels: ["00:00 h", "06:00 h", "12:00 h", "18:00 h", "24:00 h"],
+                    datasets: [
+                        {
+                            label: "Máximo",
+                            fillColor: "#3c8dbc",
+                            strokeColor: "#3c8dbc",
+                            pointColor: "#3b8bba",
+                            pointStrokeColor: "rgba(60,141,188,1)",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(60,141,188,1)",
+                            data: [80, 80, 80, 80, 80]
+                        },
+                        {
+                            label: "Real",
+                            fillColor: "rgba(210, 214, 222, 1)",
+                            strokeColor: "rgba(210, 214, 222, 1)",
+                            pointColor: "rgba(210, 214, 222, 1)",
+                            pointStrokeColor: "rgba(60,141,188,1)",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(60,141,188,1)",
+                            data: [70, 75, 68, 71, 70]
+                        },
+                        {
+                            label: "Mínimo",
+                            fillColor: "#f56954",
+                            strokeColor: "#f56954",
+                            pointColor: "#f56954",
+                            pointStrokeColor: "#c1c7d1",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(220,220,220,1)",
+                            data: [65, 55, 56, 66, 65]
+                        },
+                    ]
+                };
+
+                var umidadeDoArChartOptions = {
+                    //Boolean - If we should show the scale at all
+                    showScale: true,
+                    //Boolean - Whether grid lines are shown across the chart
+                    scaleShowGridLines: false,
+                    //String - Colour of the grid lines
+                    scaleGridLineColor: "rgba(0,0,0,.05)",
+                    //Number - Width of the grid lines
+                    scaleGridLineWidth: 1,
+                    //Boolean - Whether to show horizontal lines (except X axis)
+                    scaleShowHorizontalLines: true,
+                    //Boolean - Whether to show vertical lines (except Y axis)
+                    scaleShowVerticalLines: true,
+                    //Boolean - Whether the line is curved between points
+                    bezierCurve: true,
+                    //Number - Tension of the bezier curve between points
+                    bezierCurveTension: 0.3,
+                    //Boolean - Whether to show a dot for each point
+                    pointDot: false,
+                    //Number - Radius of each point dot in pixels
+                    pointDotRadius: 4,
+                    //Number - Pixel width of point dot stroke
+                    pointDotStrokeWidth: 1,
+                    //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+                    pointHitDetectionRadius: 20,
+                    //Boolean - Whether to show a stroke for datasets
+                    datasetStroke: true,
+                    //Number - Pixel width of dataset stroke
+                    datasetStrokeWidth: 2,
+                    //Boolean - Whether to fill the dataset with a color
+                    datasetFill: true,
+                    //String - A legend template
+                    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
+                    //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+                    maintainAspectRatio: true,
+                    //Boolean - whether to make the chart responsive to window resizing
+                    responsive: true
+                };
+                umidadeDoArChart.Line(umidadeDoArData, umidadeDoArChartOptions);
+
 
                 var areaChartData = {
-                    labels: ["01:00 h", "06:00 h", "12:00 h", "18:00 h", "24:00 h"],
+                    labels: ["January", "February", "March", "April", "May", "June", "July"],
                     datasets: [
                         {
                             label: "Umidade prevista",
@@ -380,7 +421,7 @@
                 };
 
                 //Create the line chart
-                areaChart.Line(areaChartData, areaChartOptions);
+                areaChart.Line(umidadeDoAr, areaChartOptions);
 
                 //-------------
                 //- LINE CHART -
